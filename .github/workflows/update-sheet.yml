@@ -1,0 +1,30 @@
+name: Update NSE Stocks to Google Sheets
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    # 9:15 PM IST = 3:45 PM UTC
+    - cron: "45 15 * * 1-5"
+
+jobs:
+  update-sheet:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python packages
+        run: pip install -r requirements.txt
+
+      - name: Run NSE sheet updater
+        env:
+          GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+        run: python updatesheet.py
