@@ -213,7 +213,7 @@ def update_google_sheet(output_df, bhavcopy_date):
             ["Last Updated", now_ist],
             ["Bhavcopy Date", bhavcopy_date],
         ],
-        range_name="E1:F2",
+        range_name="L1:M2",
     )
 
     print(f"Updated {len(values)} stocks into Google Sheet.")
